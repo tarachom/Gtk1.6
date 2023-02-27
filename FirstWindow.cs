@@ -22,17 +22,27 @@ class FirstWindow : Window
             vBox.PackStart(mb, false, false, 0);
 
             //1
-            Menu СonfMenu = new Menu();
+            Menu OneMenu = new Menu();
             MenuItem Item = new MenuItem("Файл");
-            Item.Submenu = СonfMenu;
+            Item.Submenu = OneMenu;
 
             MenuItem save = new MenuItem("Зберегти");
-            СonfMenu.Append(save);
+            OneMenu.Append(save);
 
             MenuItem edit = new MenuItem("Параметри");
-            СonfMenu.Append(edit);
+            OneMenu.Append(edit);
 
             mb.Append(Item);
+
+            //2
+            Menu TooMenu = new Menu();
+            MenuItem Item2 = new MenuItem("Користувачі");
+            Item2.Submenu = TooMenu;
+
+            MenuItem usersList = new MenuItem("Список користувачів");
+            TooMenu.Append(usersList);
+
+            mb.Append(Item2);
         }
 
         //Верхній горизонтальний контейнер
@@ -222,7 +232,7 @@ class FirstWindow : Window
 
                 var pb = new Gdk.Pixbuf("images/ok.png");
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 20; i++)
                     list.Add(new object[] { pb, $"{i}", $"Назва {i}" });
 
                 foreach (var item in list)
