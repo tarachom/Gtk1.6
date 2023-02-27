@@ -177,7 +177,7 @@ class FirstWindow : Window
 
             Button bPopover = new Button("Календар");
 
-            Popover popover = new Popover(bPopover) { Position = PositionType.Right, BorderWidth = 2 };
+            Popover popover = new Popover(bPopover) { Position = PositionType.Right, BorderWidth = 5 };
             popover.Add(new Calendar());
 
             bPopover.Clicked += (object? sender, EventArgs args) => { popover.ShowAll(); };
@@ -209,7 +209,7 @@ class FirstWindow : Window
 
             bPopUp.ButtonReleaseEvent += (object? sender, ButtonReleaseEventArgs args) =>
             {
-                if (args.Event.Button == 3)
+                //if (args.Event.Button == 3)
                     PopUpContextMenu().Popup();
             };
 
@@ -218,6 +218,21 @@ class FirstWindow : Window
 
         //Дев'ятий горизонтальний контейнер
         {
+            Menu PopUpContextMenu()
+            {
+                Menu menu = new Menu();
+
+                MenuItem open = new MenuItem("Додати");
+                menu.Append(open);
+
+                MenuItem close = new MenuItem("Видалити");
+                menu.Append(close);
+
+                menu.ShowAll();
+
+                return menu;
+            }
+
             void AddColumns(TreeView TreeViewGrid)
             {
                 TreeViewGrid.AppendColumn(new TreeViewColumn("", new CellRendererPixbuf(), "pixbuf", 0)); /* Image */
@@ -257,6 +272,11 @@ class FirstWindow : Window
 
             TreeViewGrid.Selection.Mode = SelectionMode.Multiple;
             TreeViewGrid.ActivateOnSingleClick = true;
+            TreeViewGrid.ButtonReleaseEvent += (object? sender, ButtonReleaseEventArgs args) =>
+            {
+                if (args.Event.Button == 3 && TreeViewGrid.Selection.CountSelectedRows() != 0)
+                    PopUpContextMenu().Popup();
+            }; ;
 
             scrollTree.Add(TreeViewGrid);
 
